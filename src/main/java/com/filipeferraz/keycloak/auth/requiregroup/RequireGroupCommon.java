@@ -22,8 +22,8 @@ public class RequireGroupCommon {
     public static final String ACTION_ATTRIBUTE_NAME = "require-group-action";
     public static final String OPERATION_ATTRIBUTE_NAME = "require-group-operation";
 
-    private static final String ALLOW_ACTION = "PERMITIR";
-    private static final String DENY_ACTION = "BLOQUEAR";
+    private static final String ALLOW_ACTION = "ALLOW";
+    private static final String DENY_ACTION = "DENY";
 
     private static final String AND_OPERATION = "AND";
     private static final String OR_OPERATION = "OR";
