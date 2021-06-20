@@ -1,0 +1,2 @@
+com.filipeferraz.keycloak.auth.requiregroup.RequireGroupAuthenticatorFactory
+com.filipeferraz.keycloak.auth.requiregroup.RequireGroupCookieAuthenticatorFactory
