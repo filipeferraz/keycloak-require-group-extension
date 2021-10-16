@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RequireGroupCommon {
@@ -75,9 +76,9 @@ public class RequireGroupCommon {
 
         List<String> notFoundGroups = new ArrayList<>();
 
-        Stream<GroupModel> gruposStream = Arrays.stream(groups.split(","))
+        List<GroupModel> groupsList = Arrays.stream(groups.split(","))
                 .map(grupo -> localizarGrupoKeycloak(realm, notFoundGroups, grupo))
-                .filter(Objects::nonNull);
+                .filter(Objects::nonNull).collect(Collectors.toList());
 
         if (!notFoundGroups.isEmpty()) {
             LOG.errorf("Error validating group(s). Group(s) not found: %s.", String.join(", ", notFoundGroups));
@@ -88,10 +89,10 @@ public class RequireGroupCommon {
 
         if (OR_OPERATION.equals(operacao)) {
             // OR_OPERATION
-            sucess = gruposStream.anyMatch(user::isMemberOf);
+            sucess = groupsList.stream().anyMatch(user::isMemberOf);
         } else {
             // AND_OPERATION
-            sucess = gruposStream.allMatch(user::isMemberOf);
+            sucess = groupsList.stream().allMatch(user::isMemberOf);
         }
 
         LOG.debugf("Acess %s to user after validation. realm=%s username=%s groups=%s", resultadoValidacao(acao, sucess), realm.getName(), user.getUsername(), groups);
